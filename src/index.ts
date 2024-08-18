@@ -67,9 +67,23 @@ wss.on('connection', (ws) => {
             }
         }else if(message.type === 'draw'){
             if(ws === senderSocket){
+                console.log('draw message send to the receiver');
+                
                 receiverSocket?.send(JSON.stringify({type:'draw', currentPoint:message.currentPoint, prevPoint: message.prevPoint, color: message.color, lineWidth:message.lineWidth }))
             }else if(ws === receiverSocket){
+                console.log('draw message send to sender');
+                
                 senderSocket?.send(JSON.stringify({type:'draw', currentPoint:message.currentPoint, prevPoint: message.prevPoint, color: message.color, lineWidth:message.lineWidth }))
+            }
+        }else if(message.type === 'clear'){
+            if(ws === senderSocket){
+                console.log('draw message send to the receiver');
+                
+                receiverSocket?.send(JSON.stringify({type:'clear'}))
+            }else if(ws === receiverSocket){
+                console.log('draw message send to sender');
+                
+                senderSocket?.send(JSON.stringify({type:'clear'}))
             }
         }
     });
